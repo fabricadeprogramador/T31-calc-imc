@@ -14,7 +14,18 @@
         let peso = document.getElementById("campoPeso").value;
 
         //Objeto que guarda os dados da pessoa
-        let pessoa = { altura: altura, peso: peso };
+
+        //#Sintaxe 1
+        //let pessoa = { altura: altura, peso: peso };
+
+        //#Sintaxe 2
+        let pessoa = { altura, peso };
+
+        //#Sintaxe 3
+
+        // let pessoa = {};
+        // pessoa.altura = altura;
+        // pessoa.peso = peso;
 
         console.log(pessoa);
         //2 Calculo do IMC
@@ -47,7 +58,7 @@
   </head>
   <body>
     <div>
-      <div>Calculadora de IMC</div>
+      <div>Calculadora de IMC v3</div>
 
       <div>Altura</div>
       <div><input id="campoAltura" /></div>
