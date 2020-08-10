@@ -6,59 +6,68 @@
     <title>Calculadora IMC</title>
 
     <script>
+      //pessoa  faz:  quardarOsDados, calculoIMC
+      //controle faz: ler dados da tela e exibir dados na tela
+
+      pessoa = {
+        altura: 0,
+        peso: 0,
+        calcularImc: function () {
+          return this.peso / (this.altura * this.altura);
+        },
+        classificar: function () {
+          //3 Classicar o resultado
+          let mensagem = "";
+          let imc = this.calcularImc();
+          if (imc < 18.5) {
+            mensagem = "Abaixo do Peso";
+          } else if (imc >= 18.5 && imc <= 24.9) {
+            mensagem = "Peso normal";
+          } else if (imc >= 25 && imc <= 29.9) {
+            mensagem = "Sobrepeso";
+          } else if (imc >= 30 && imc <= 34.9) {
+            mensagem = "Obesidade Grau 1";
+          } else if (imc >= 35 && imc <= 39.9) {
+            mensagem = "Obesidade Grau 2";
+          } else {
+            mensagem = "Obesidade Grau 3";
+          }
+          return mensagem;
+        },
+      };
+
+      controle = {
+        lerDados: function () {
+          //1 Leitura dos dados da tela
+          let altura = document.getElementById("campoAltura").value;
+          let peso = document.getElementById("campoPeso").value;
+          return { altura, peso };
+        },
+        exibirResultado: function (msg) {
+          document.getElementById("resultado").innerText = msg;
+        },
+      };
+
       //Guardando dados da tela dentro de objetos
-
       function calcular() {
-        //1 Leitura dos dados da tela
-        let altura = document.getElementById("campoAltura").value;
-        let peso = document.getElementById("campoPeso").value;
+        //1) ler os dados da tela
+        let dados = controle.lerDados();
 
-        //Objeto que guarda os dados da pessoa
+        //2) Atribuir os dados a pessoa
+        pessoa.altura = dados.altura;
+        pessoa.peso = dados.peso;
 
-        //#Sintaxe 1
-        //let pessoa = { altura: altura, peso: peso };
+        //3) classificação
+        let classificacao = pessoa.classificar();
 
-        //#Sintaxe 2
-        let pessoa = { altura, peso };
-
-        //#Sintaxe 3
-
-        // let pessoa = {};
-        // pessoa.altura = altura;
-        // pessoa.peso = peso;
-
-        console.log(pessoa);
-        //2 Calculo do IMC
-
-        let imc = pessoa.peso / (pessoa.altura * pessoa.altura);
-        console.log(imc);
-
-        //3 Classicar o resultado
-        let mensagem = "";
-
-        if (imc < 18.5) {
-          mensagem = "Abaixo do Peso";
-        } else if (imc >= 18.5 && imc <= 24.9) {
-          mensagem = "Peso normal";
-        } else if (imc >= 25 && imc <= 29.9) {
-          mensagem = "Sobrepeso";
-        } else if (imc >= 30 && imc <= 34.9) {
-          mensagem = "Obesidade Grau 1";
-        } else if (imc >= 35 && imc <= 39.9) {
-          mensagem = "Obesidade Grau 2";
-        } else {
-          mensagem = "Obesidade Grau 3";
-        }
-
-        console.log(mensagem);
-        //4 Mostrar o resultado
-        document.getElementById("resultado").innerText = mensagem;
+        //4) Exibir na tela
+        controle.exibirResultado(classificacao);
       }
     </script>
   </head>
   <body>
     <div>
-      <div>Calculadora de IMC v3</div>
+      <div>Calculadora de IMC v5</div>
 
       <div>Altura</div>
       <div><input id="campoAltura" /></div>
